@@ -1,0 +1,15 @@
+---
+type: yml
+
+http_server:
+  port: 1314
+
+mongodb:
+  port: 3306
+  host: localhost
+  db_name: db_name
+  username: db
+  password: password
+
+
+
