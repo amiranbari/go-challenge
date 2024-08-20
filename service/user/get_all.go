@@ -2,9 +2,9 @@ package userservice
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	userparam "github.com/amiranbari/challenge/param/user"
+	richerror "github.com/amiranbari/challenge/rich_error"
 	"github.com/xuri/excelize/v2"
 	"os"
 	"path/filepath"
@@ -13,9 +13,14 @@ import (
 
 func (s Service) GetAll(ctx context.Context, req userparam.GetAllRequest) (userparam.GetAllResponse, error) {
 
+	const op = "userservice.GetAll"
+	if fieldErrors, vErr := s.vld.ValidateGetAll(req); vErr != nil {
+		return userparam.GetAllResponse{FieldErrors: fieldErrors}, richerror.New(op).WithErr(vErr)
+	}
+
 	users, err := s.repo.GetAllUsers(ctx, req.Filter)
 	if err != nil {
-		return userparam.GetAllResponse{}, errors.New("error in export excel")
+		return userparam.GetAllResponse{}, richerror.New(op).WithErr(err)
 	}
 
 	f := excelize.NewFile()
@@ -37,14 +42,14 @@ func (s Service) GetAll(ctx context.Context, req userparam.GetAllRequest) (userp
 
 	dir := "exports"
 	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
-		return userparam.GetAllResponse{Users: users}, err
+		return userparam.GetAllResponse{Users: users}, richerror.New(op).WithErr(err)
 	}
 
 	fileName := fmt.Sprintf("users_%d.xlsx", time.Now().Unix())
 	filePath := filepath.Join(dir, fileName)
 
 	if err := f.SaveAs(filePath); err != nil {
-		return userparam.GetAllResponse{Users: users}, err
+		return userparam.GetAllResponse{Users: users}, richerror.New(op).WithErr(err)
 	}
 
 	downloadLink := fmt.Sprintf("http://localhost:1314/exports/%s", fileName)

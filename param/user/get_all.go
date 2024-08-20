@@ -10,6 +10,7 @@ type GetAllRequest struct {
 }
 
 type GetAllResponse struct {
-	Link  string
-	Users []entity.User
+	Link        string
+	Users       []entity.User
+	FieldErrors map[string]string `json:"field_errors,omitempty"`
 }

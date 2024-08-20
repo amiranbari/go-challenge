@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/amiranbari/challenge/entity"
 	params "github.com/amiranbari/challenge/param"
+	validator "github.com/amiranbari/challenge/validator/user"
 )
 
 type Repository interface {
@@ -12,10 +13,12 @@ type Repository interface {
 
 type Service struct {
 	repo Repository
+	vld  validator.Validator
 }
 
-func New(repo Repository) Service {
+func New(repo Repository, vld validator.Validator) Service {
 	return Service{
 		repo: repo,
+		vld:  vld,
 	}
 }
