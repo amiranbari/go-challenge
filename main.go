@@ -41,8 +41,8 @@ func initializeDatabase(ctx context.Context, db *mongo.Database) error {
 	// Define the collections and their initial data
 	collections := map[string][]interface{}{
 		"users": {
-			bson.M{"name": "Alice", "age": 30, "email": "alice@example.com"},
-			bson.M{"name": "Bob", "age": 25, "email": "bob@example.com"},
+			bson.M{"first_name": "Alice", "last_name": "Alexander", "age": 30, "email": "alice@example.com"},
+			bson.M{"first_name": "Bob", "last_name": "Flamingo", "age": 25, "email": "bob@example.com"},
 		},
 	}
 

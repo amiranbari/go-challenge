@@ -28,7 +28,7 @@ func (s Service) GetAll(ctx context.Context, req userparam.GetAllRequest) (userp
 	sheetName := "Users"
 	f.NewSheet(sheetName)
 
-	headers := []string{"Name", "Family"}
+	headers := []string{"Name", "Family", "Age", "Email"}
 	for i, header := range headers {
 		cell, _ := excelize.CoordinatesToCellName(i+1, 1)
 		f.SetCellValue(sheetName, cell, header)
@@ -38,6 +38,8 @@ func (s Service) GetAll(ctx context.Context, req userparam.GetAllRequest) (userp
 		rowNum := i + 2
 		f.SetCellValue(sheetName, fmt.Sprintf("A%d", rowNum), user.FirstName)
 		f.SetCellValue(sheetName, fmt.Sprintf("B%d", rowNum), user.LastName)
+		f.SetCellValue(sheetName, fmt.Sprintf("C%d", rowNum), user.Age)
+		f.SetCellValue(sheetName, fmt.Sprintf("D%d", rowNum), user.Email)
 	}
 
 	dir := "exports"
