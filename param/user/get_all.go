@@ -1,6 +1,7 @@
 package userparam
 
 import (
+	"github.com/amiranbari/challenge/entity"
 	"github.com/amiranbari/challenge/param"
 )
 
@@ -9,5 +10,6 @@ type GetAllRequest struct {
 }
 
 type GetAllResponse struct {
-	Link string
+	Link  string
+	Users []entity.User
 }

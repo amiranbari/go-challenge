@@ -8,12 +8,13 @@ import (
 
 func (s Service) GetAll(ctx context.Context, req userparam.GetAllRequest) (userparam.GetAllResponse, error) {
 
-	_, err := s.repo.GetAllUsers(ctx, req.Filter)
+	users, err := s.repo.GetAllUsers(ctx, req.Filter)
 	if err != nil {
 		return userparam.GetAllResponse{}, errors.New("error in export excel")
 	}
 
 	return userparam.GetAllResponse{
-		Link: "http://asdasd",
+		Link:  "http://asdasd",
+		Users: users,
 	}, nil
 }
