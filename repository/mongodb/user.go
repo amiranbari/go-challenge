@@ -16,6 +16,10 @@ func (d *DB) GetAllUsers(ctx context.Context, filter params.FilterRequest) ([]en
 
 	bsonFilter := bson.M{}
 
+	for key, value := range filter {
+		bsonFilter[key] = value
+	}
+
 	findOptions := options.Find()
 
 	cursor, err := collection.Find(ctx, bsonFilter, findOptions)
