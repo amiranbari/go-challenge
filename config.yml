@@ -5,11 +5,11 @@ http_server:
   port: 1314
 
 mongodb:
-  port: 3306
+  port: 27017
   host: localhost
-  db_name: db_name
-  username: db
-  password: password
+  db_name: admin
+  username: admin
+  password: 123456
 
 
 
